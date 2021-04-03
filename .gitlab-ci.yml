@@ -5,14 +5,7 @@ variables:
 services:
   - docker:dind
 
-
-stages:
-  - install
-  - build
-
-install-dependencies:
-  stage: install
-  script:
+before_script:
     - docker info
     - apk update
     - apk upgrade
@@ -20,15 +13,18 @@ install-dependencies:
     - curl -O https://bootstrap.pypa.io/get-pip.py
     - python3 get-pip.py
     - pip install --upgrade pip
-    - pip install docker-compose
+    - echo "cryptography==3.3.2" > /tmp/requirements.txt
+    - pip3 install -U docker-compose -r /tmp/requirements.txt
+    - rm /tmp/requirements.txt
 
+
+stages:
+  - build
 
 build-app:
   stage: build
   variables:
     ENVIRONMENT: 'staging'
-  dependencies:
-    - install-dependencies
   script:
     - docker-compose up -d
   only:
