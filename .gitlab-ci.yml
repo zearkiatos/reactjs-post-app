@@ -1,24 +1,29 @@
-image: docker
+image: docker:latest
 variables:
   DOCKER_DRIVER: overlay
 services:
   - docker:dind
 
-before_script:
-  - docker info
-  - apk update
-  - apk upgrade
-  - apk add python python-dev py-pip build-base libffi-dev openssl-dev
-  - pip install docker-compose
-
 
 stages:
+  - install
   - build
+
+install-dependencies:
+  stage: install
+  script:
+    - docker info
+    - apk update
+    - apk upgrade
+    - apk add python python-dev py-pip build-base libffi-dev openssl-dev
+    - pip install docker-compose
 
 build-app:
   stage: build
   variables:
     ENVIRONMENT: 'staging'
+  dependencies:
+    - install-dependencies
   script:
     - docker-compose up -d
   only:
