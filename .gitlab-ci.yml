@@ -30,6 +30,7 @@ build-app:
     - echo "Deploy a review app 🛠"
     - touch .env
     - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
+    - echo "REACT_APP_JSONPLACEHOLDER_BASE_URL=${REACT_APP_JSONPLACEHOLDER_BASE_URL} >> .env"
     - npm run build
   artifacts:
     expire_in: 1hr
@@ -42,7 +43,8 @@ pages:
     - build-app
   script:
     - echo "Deploy a review app 🚀"
-    - rm public & mkdir public
+    - rm public
+    - mkdir public
     - mv ./build/reactjs-post-app/* ./public/
   artifacts:
     paths:

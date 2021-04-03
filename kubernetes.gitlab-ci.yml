@@ -27,6 +27,7 @@ build-app:
   script:
     - touch .env
     - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
+    - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
     - docker-compose up -d
   only:
     - branches
