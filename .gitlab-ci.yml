@@ -25,10 +25,8 @@ build-app:
   variables:
     ENVIRONMENT: 'staging'
   script:
-    - docker-compose up -d
-  dependencies:
     - touch .env
     - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
-    - install-dependencies
+    - docker-compose up -d
   only:
     - branches
