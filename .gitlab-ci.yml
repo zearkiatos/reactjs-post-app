@@ -19,7 +19,14 @@ before_script:
 
 
 stages:
+  - install
   - build
+
+install-dependencies:
+  stage: install
+  script:
+    - touch .env
+    - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
 
 build-app:
   stage: build
@@ -27,5 +34,7 @@ build-app:
     ENVIRONMENT: 'staging'
   script:
     - docker-compose up -d
+  dependencies:
+    - install-dependencies
   only:
     - branches
