@@ -1,32 +1,53 @@
-image: docker:latest
-variables:
-  DOCKER_DRIVER: overlay
-  CRYPTOGRAPHY_DONT_BUILD_RUST: 1
-services:
-  - docker:dind
-
-before_script:
-    - docker info
-    - apk update
-    - apk upgrade
-    - apk add curl jq python3 python3-dev build-base libffi-dev libressl-dev gettext
-    - curl -O https://bootstrap.pypa.io/get-pip.py
-    - python3 get-pip.py
-    - pip install --upgrade pip
-    - echo "cryptography==3.3.2" > /tmp/requirements.txt
-    - pip3 install -U docker-compose -r /tmp/requirements.txt
-    - rm /tmp/requirements.txt
-
+image: node:15-alpine
 stages:
+  - install
   - build
+  - deploy
+
+install-dependencies:
+  stage: install
+  script:
+    - apk update && apk add python make g++
+    - apk add --update nodejs npm
+    - npm install --silent
+    - npm install react-scripts -g --silent
+    - npm install nodemon -g --silent
+  artifacts:
+    expire_in: 1hr
+    paths:
+      - node_modules/
+  cache:
+    paths:
+      - node_modules/
 
 build-app:
   stage: build
   variables:
     ENVIRONMENT: 'staging'
+  dependencies:
+    - install-dependencies
   script:
+    - echo "Deploy a review app 🛠"
     - touch .env
     - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
-    - docker-compose up -d
+    - npm run build
+  artifacts:
+    expire_in: 1hr
+    paths:
+      - dist/
+
+pages:
+  stage: deploy
+  dependencies:
+    - build-app
+  script:
+    - echo "Deploy a review app 🚀"
+    - mkdir public
+    - mv ./dist/reactjs-post-app/* ./public/
+  artifacts:
+    paths:
+      - public
+  environment:
+    name: staging
   only:
     - branches
