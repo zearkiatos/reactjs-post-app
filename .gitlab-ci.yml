@@ -1,6 +1,7 @@
 image: docker:latest
 variables:
   DOCKER_DRIVER: overlay
+  CRYPTOGRAPHY_DONT_BUILD_RUST: 1
 services:
   - docker:dind
 
