@@ -17,16 +17,8 @@ before_script:
     - pip3 install -U docker-compose -r /tmp/requirements.txt
     - rm /tmp/requirements.txt
 
-
 stages:
-  - install
   - build
-
-install-dependencies:
-  stage: install
-  script:
-    - touch .env
-    - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
 
 build-app:
   stage: build
@@ -35,6 +27,8 @@ build-app:
   script:
     - docker-compose up -d
   dependencies:
+    - touch .env
+    - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
     - install-dependencies
   only:
     - branches
