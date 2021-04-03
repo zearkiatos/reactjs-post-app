@@ -15,8 +15,11 @@ install-dependencies:
     - docker info
     - apk update
     - apk upgrade
-    - apk add python python-dev py-pip build-base libffi-dev openssl-dev
+    - apk add curl jq python3 python3-dev build-base libffi-dev libressl-dev gettext
+    - curl -O https://bootstrap.pypa.io/get-pip.py
+    - python3 get-pip.py
     - pip install docker-compose
+
 
 build-app:
   stage: build
