@@ -1,6 +1,11 @@
 image: docker
 services:
   - docker:dind
+
+before_script:
+  - docker info
+  - docker-compose --version
+
 stages:
   - install
   - build
@@ -17,6 +22,6 @@ build-app:
   dependencies:
     - install-dependencies
   script:
-    - docker-compose up
+    - docker-compose up -d
   only:
     - branches
