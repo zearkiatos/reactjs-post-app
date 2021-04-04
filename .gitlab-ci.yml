@@ -43,8 +43,8 @@ pages:
     - build-app
   script:
     - echo "Deploy a review app 🚀"
-    - rmdir public
     - rm -rf public
+    - mkdir public
     - mv ./build/reactjs-post-app/* ./public/
   artifacts:
     paths:
