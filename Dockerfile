@@ -12,6 +12,6 @@ RUN npm install react-scripts -g --silent
 RUN npm install nodemon -g --silent
 RUN npm install concurrently -g --silent
 
-ENTRYPOINT ["sh","./docker/entrypoint.sh", "> /dev/null"]
+RUN sh ./docker/entrypoint.sh
 
 EXPOSE 3001
