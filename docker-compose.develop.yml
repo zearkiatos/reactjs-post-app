@@ -4,12 +4,12 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: develop.Dockerfile
     container_name: post-app
     volumes: 
       - ".:/app"
     env_file:
       - .env
     ports:
-      - "80:80"
+      - "3001:3000"
     tty: true
