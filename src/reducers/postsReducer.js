@@ -1,5 +1,5 @@
 import TYPES from "../types";
-export default (state = [], action) => {
+const postsReducer = (state = [], action) => {
   switch (action.type) {
     case TYPES.FETCH_POSTS: {
       return action.payload;
@@ -8,3 +8,4 @@ export default (state = [], action) => {
       return state;
   }
 };
+export default postsReducer
