@@ -1,6 +1,7 @@
 const TYPES = {
     FETCH_POSTS:'FETCH_POSTS',
-    SELECT_POST: 'SELECT_POST'
+    SELECT_POST: 'SELECT_POST',
+    FETCH_USER: 'FETCH_USER'
 };
 
 export default TYPES;
