@@ -12,7 +12,7 @@ export const fetchPosts = () => async dispatch => {
 
 const mapperPosts = posts => posts.map(post => ({
     ...post,
-    'avatar': faker.image.avatar
+    'avatar': faker.image.avatar()
 }))
 
 export const selectPost = () => {

@@ -11,8 +11,10 @@ class PostList extends React.Component {
         return this.props.posts.map(post => {
             return (
                 <div className="item" key={post.id}>
-                    <img className="ui medium middle aligned circular image" alt={post.id} src={post.avatar} />
-                    <div className="content">
+                    <div className="ui tiny left floated circular image">
+                        <img alt={post.id} src={post.avatar} />
+                    </div>
+                    <div className="middle aligned content">
                         <div className="description">
                             <h2>
                                 {post.title}
