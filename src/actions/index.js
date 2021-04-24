@@ -11,13 +11,13 @@ export const fetchPosts = () => async dispatch => {
     dispatch({ type: TYPES.FETCH_POSTS, payload: mappedPosts });
 };
 
-export const fetchUser = function (id) {
-    return memoize(async function (dispatch) {
-        const response = await jsonPlaceholder.get(`/users/${id}`);
+export const fetchUser = id => dispatch => _fetchUser(id, dispatch);
 
-        dispatch({ type: TYPES.FETCH_USER, payload: response.data });
-    });
-}
+const _fetchUser = memoize(async (id, dispatch) => {
+    const response = await jsonPlaceholder.get(`/users/${id}`);
+
+    dispatch({ type: TYPES.FETCH_USER, payload: response.data });
+});
 
 const mapperPosts = posts => posts.map(post => ({
     ...post,
