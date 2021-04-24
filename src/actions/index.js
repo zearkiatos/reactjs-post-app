@@ -1,7 +1,13 @@
 import { memoize } from 'lodash';
 import TYPES from '../types';
 import jsonPlaceholder from '../apis/jsonPlaceholder';
-import faker from 'faker'
+import faker from 'faker';
+
+export const fetchPostsAndUsers = () => async dispatch => {
+    console.log('About to Fetch posts!');
+    await dispatch(fetchPosts());
+    console.log('Fetching posts!');
+};
 
 export const fetchPosts = () => async dispatch => {
     const response = await jsonPlaceholder.get('/posts');
