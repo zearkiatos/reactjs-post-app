@@ -1,12 +1,16 @@
-import { map, uniq } from 'lodash';
+import lodash from 'lodash';
 import TYPES from '../types';
 import jsonPlaceholder from '../apis/jsonPlaceholder';
 import faker from 'faker';
 
 export const fetchPostsAndUsers = () => async (dispatch, getState) => {
     await dispatch(fetchPosts());
-    const userIds = uniq(map(getState().posts, 'userId'));
-    userIds.forEach(id => dispatch(fetchUser(id)));
+    lodash.chain(getState.posts)
+        .map('userId')
+        .uniq()
+        .forEach(id => dispatch(fetchUser(id)))
+        .value();
+
 };
 
 export const fetchPosts = () => async dispatch => {
@@ -20,7 +24,7 @@ export const fetchPosts = () => async dispatch => {
 export const fetchUser = id => async dispatch => {
     const response = await jsonPlaceholder.get(`/users/${id}`);
 
-    dispatch({ type: TYPES.FETCH_USER, payload: response.data });
+    dispatch({¶ type: TYPES.FETCH_USER, payload: response.data });
 };
 
 const mapperPosts = posts => posts.map(post => ({
