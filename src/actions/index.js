@@ -1,12 +1,12 @@
-import { memoize } from 'lodash';
+import { map, uniq } from 'lodash';
 import TYPES from '../types';
 import jsonPlaceholder from '../apis/jsonPlaceholder';
 import faker from 'faker';
 
-export const fetchPostsAndUsers = () => async dispatch => {
-    console.log('About to Fetch posts!');
+export const fetchPostsAndUsers = () => async (dispatch, getState) => {
     await dispatch(fetchPosts());
-    console.log('Fetching posts!');
+    const userIds = uniq(map(getState().posts, 'userId'));
+    userIds.forEach(id => dispatch(fetchUser(id)));
 };
 
 export const fetchPosts = () => async dispatch => {
