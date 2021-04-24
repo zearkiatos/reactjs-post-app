@@ -10,7 +10,6 @@ export const fetchPostsAndUsers = () => async (dispatch, getState) => {
         .uniq()
         .forEach(id => dispatch(fetchUser(id)))
         .value();
-
 };
 
 export const fetchPosts = () => async dispatch => {
@@ -24,7 +23,7 @@ export const fetchPosts = () => async dispatch => {
 export const fetchUser = id => async dispatch => {
     const response = await jsonPlaceholder.get(`/users/${id}`);
 
-    dispatch({¶ type: TYPES.FETCH_USER, payload: response.data });
+    dispatch({ type: TYPES.FETCH_USER, payload: response.data });
 };
 
 const mapperPosts = posts => posts.map(post => ({
