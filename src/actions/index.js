@@ -5,8 +5,7 @@ import faker from 'faker';
 
 export const fetchPostsAndUsers = () => async (dispatch, getState) => {
     await dispatch(fetchPosts());
-    lodash.chain(getState.posts)
-        .map('userId')
+    lodash.chain(getState().posts).map('userId')
         .uniq()
         .forEach(id => dispatch(fetchUser(id)))
         .value();
@@ -22,7 +21,7 @@ export const fetchPosts = () => async dispatch => {
 
 export const fetchUser = id => async dispatch => {
     const response = await jsonPlaceholder.get(`/users/${id}`);
-
+    console.log(response);
     dispatch({ type: TYPES.FETCH_USER, payload: response.data });
 };
 
