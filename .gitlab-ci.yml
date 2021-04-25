@@ -49,7 +49,7 @@ pages:
     - echo "Deploy a review app 🚀"
     - npm run build
     - rm -rf public
-    - rm -rf build/* public
+    - rm -rf build/* public/*
   artifacts:
     paths:
       - public
