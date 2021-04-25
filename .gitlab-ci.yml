@@ -48,7 +48,7 @@ pages:
   script:
     - echo "Deploy a review app 🚀"
     - npm run build
-    - rm -rf build/* reactjs-post-app/public/*
+    - rm -rf build/* public/*
   artifacts:
     paths:
       - public
