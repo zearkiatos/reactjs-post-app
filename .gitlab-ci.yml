@@ -1,4 +1,11 @@
 image: node:15-alpine
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - rm -rf build
+  - npm install
 stages:
   - install
   - build
