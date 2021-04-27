@@ -51,6 +51,8 @@ pages:
     - build-app
   script:
     - echo "Deploy a review app 🚀"
+    - apk update && apk add python make g++
+    - apk add --update nodejs npm
     - mv build public   
   artifacts:
     paths:
