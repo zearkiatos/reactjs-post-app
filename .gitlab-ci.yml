@@ -42,13 +42,17 @@ build-app:
       - build/
 
 pages:
+  cache:
+    paths:
+    - ./node_modules/
   stage: deploy
   dependencies:
     - build-app
   script:
     - echo "Deploy a review app 🚀"
+    - npm install
     - npm run build
-    - mv -f build/* public/
+    - mv build/* public/
   artifacts:
     paths:
       - public
