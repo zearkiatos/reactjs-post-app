@@ -45,8 +45,8 @@ pages:
     paths:
     - ./node_modules/
   stage: deploy
-  dependencies:
-    - build-app
+  # dependencies:
+  #   - build-app
   script:
     - echo "Deploy a review app 🚀"
     - npm install
