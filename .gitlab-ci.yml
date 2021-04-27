@@ -5,7 +5,6 @@ before_script:
   - CI=false npm install
 stages:
   - install
-  - build
   - deploy
 
 install-dependencies:
@@ -24,22 +23,22 @@ install-dependencies:
     paths:
       - node_modules/
 
-build-app:
-  stage: build
-  variables:
-    ENVIRONMENT: 'staging'
-  dependencies:
-    - install-dependencies
-  script:
-    - echo "Deploy a review app 🛠"
-    - touch .env
-    - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
-    - echo "REACT_APP_JSONPLACEHOLDER_BASE_URL=${REACT_APP_JSONPLACEHOLDER_BASE_URL} >> .env"
-    - npm run build
-  artifacts:
-    expire_in: 1hr
-    paths:
-      - build/
+# build-app:
+#   stage: build
+#   variables:
+#     ENVIRONMENT: 'staging'
+#   dependencies:
+#     - install-dependencies
+#   script:
+#     - echo "Deploy a review app 🛠"
+#     - touch .env
+#     - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
+#     - echo "REACT_APP_JSONPLACEHOLDER_BASE_URL=${REACT_APP_JSONPLACEHOLDER_BASE_URL} >> .env"
+#     - npm run build
+#   artifacts:
+#     expire_in: 1hr
+#     paths:
+#       - public/
 
 pages:
   cache:
