@@ -2,7 +2,7 @@ image: node:15-alpine
 
 before_script:
   - rm -rf build
-  - npm install
+  - CI=false npm install
 stages:
   - install
   - build
@@ -51,8 +51,9 @@ pages:
   script:
     - echo "Deploy a review app 🚀"
     - npm install
-    - npm run build
-    - mv build/* public/
+    - CI=false npm run build
+    - cp build/index.html build/404.html
+    - mv build public
   artifacts:
     paths:
       - public
