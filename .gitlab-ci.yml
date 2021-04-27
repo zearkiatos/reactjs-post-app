@@ -41,6 +41,8 @@ install-dependencies:
 #       - public/
 
 pages:
+  variables: 
+    PUBLIC_URL: https://caprilespe.gitlab.io/reactjs-post-app/  
   cache:
     paths:
     - ./node_modules/
