@@ -1,61 +1,35 @@
-image: node:15-alpine
-
 before_script:
-  - rm -rf build
   - npm install
 stages:
-  - install
+  - build
   - deploy
 
-install-dependencies:
-  stage: install
+build-app:
+  image: node:15-alpine
+  stage: build
+  variables:
+    ENVIRONMENT: 'staging'
+    PUBLIC_URL: 'https://caprilespe.gitlab.io/reactjs-post-app/'
   script:
-    - apk update && apk add python make g++
-    - apk add --update nodejs npm
-    - npm install --silent
-    - npm install react-scripts -g --silent
-    - npm install nodemon -g --silent
+    - echo "Deploy a review app 🛠"
+    - touch .env
+    - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
+    - echo "REACT_APP_JSONPLACEHOLDER_BASE_URL=${REACT_APP_JSONPLACEHOLDER_BASE_URL} >> .env"
+    - npm install
+    - npm run build
   artifacts:
     expire_in: 1hr
     paths:
-      - node_modules/
-  cache:
-    paths:
-      - node_modules/
-
-# build-app:
-#   stage: build
-#   variables:
-#     ENVIRONMENT: 'staging'
-#   dependencies:
-#     - install-dependencies
-#   script:
-#     - echo "Deploy a review app 🛠"
-#     - touch .env
-#     - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
-#     - echo "REACT_APP_JSONPLACEHOLDER_BASE_URL=${REACT_APP_JSONPLACEHOLDER_BASE_URL} >> .env"
-#     - npm run build
-#   artifacts:
-#     expire_in: 1hr
-#     paths:
-#       - public/
+      - build/
 
 pages:
-  variables: 
-    PUBLIC_URL: https://caprilespe.gitlab.io/reactjs-post-app/  
-  cache:
-    paths:
-    - ./node_modules/
+  image: alpine:latest
   stage: deploy
-  # dependencies:
-  #   - build-app
+  dependencies:
+    - build-app
   script:
     - echo "Deploy a review app 🚀"
-    - npm install
-    - npm run build
-    - rm -rf public
-    - cp build/index.html build/404.html
-    - mv build public
+    - mv build public   
   artifacts:
     paths:
       - public
