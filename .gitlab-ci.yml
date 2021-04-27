@@ -1,6 +1,4 @@
 image: node:15-alpine
-before_script:
-  - npm install
 
 stages:
   - install
