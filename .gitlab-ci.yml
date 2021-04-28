@@ -45,18 +45,11 @@ build-app:
 pages:
   image: alpine:latest
   stage: deploy
-  variables: 
-    PUBLIC_URL: https://caprilespe.gitlab.io/reactjs-post-app/
   dependencies:
     - build-app
   script:
     - echo "Deploy a review app 🚀"
-    - apk add --update nodejs npm
-    - npm install
-    - npm run build
-    - rm -rf public/*
-    - mv -f build/* public/   
-  artifacts:
+    - mv build public
     paths:
       - public
   environment:
