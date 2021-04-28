@@ -29,6 +29,7 @@ build-app:
     - install-dependencies
   variables:
     ENVIRONMENT: 'staging'
+    PUBLIC_URL: https://caprilespe.gitlab.io/reactjs-post-app/
   script:
     - echo "Deploy a review app 🛠"
     - touch .env
