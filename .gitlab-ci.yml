@@ -50,8 +50,10 @@ pages:
     GIT_STRATEGY: none
   script:
     - echo "Deploy a review app 🚀"
-    - rm -rf public
     - mv build public
+  artifacts:
+    paths:
+      - public
   environment:
     name: staging
   only:
