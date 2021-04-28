@@ -5,7 +5,6 @@ stages:
   - build
   - deploy
 
-
 install-dependencies:
   stage: install
   script:
@@ -50,8 +49,6 @@ pages:
   script:
     - echo "Deploy a review app 🚀"
     - mv build public
-    paths:
-      - public
   environment:
     name: staging
   only:
