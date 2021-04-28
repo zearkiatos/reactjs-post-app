@@ -50,12 +50,6 @@ pages:
     GIT_STRATEGY: none
   script:
     - echo "Deploy a review app 🚀"
-    - apk add --update nodejs npm
-    - touch .env
-    - echo "ENVIRONMENT=${ENVIRONMENT}" > .env
-    - echo "REACT_APP_JSONPLACEHOLDER_BASE_URL=${REACT_APP_JSONPLACEHOLDER_BASE_URL} >> .env"
-    - npm install
-    - npm run build
     - mv build public
   artifacts:
     paths:
