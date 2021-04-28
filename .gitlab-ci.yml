@@ -50,6 +50,7 @@ pages:
     GIT_STRATEGY: none
   script:
     - echo "Deploy a review app 🚀"
+    - ls -la
     - mv build public
   artifacts:
     paths:
