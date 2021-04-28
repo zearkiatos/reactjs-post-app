@@ -45,6 +45,8 @@ build-app:
 pages:
   image: alpine:latest
   stage: deploy
+  variables: 
+    PUBLIC_URL: https://caprilespe.gitlab.io/reactjs-post-app/
   dependencies:
     - build-app
   script:
