@@ -50,7 +50,8 @@ pages:
     GIT_STRATEGY: none
   script:
     - echo "Deploy a review app 🚀"
-    - mv -f build/* public/
+    - rm -f public
+    - mv build/* public/
   environment:
     name: staging
   only:
